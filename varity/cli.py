@@ -370,8 +370,25 @@ def _build_parser() -> argparse.ArgumentParser:
 # Entry point
 # ---------------------------------------------------------------------------
 
+_VARITY_ASCII = r"""
+ __      __        _ _         
+ \ \    / /       (_) |        
+  \ \  / /_ _ _ __ _| |_ _   _ 
+   \ \/ / _` | '__| | __| | | |
+    \  / (_| | |  | | |_| |_| |
+     \/ \__,_|_|  |_|\__|\__, |  v0.1
+                          __/ |
+                         |___/ 
+"""
+
 def main() -> None:
     """Varity CLI entry point."""
+    if len(sys.argv) == 1:
+        print(_c(_VARITY_ASCII, _CYAN, _BOLD))
+        print("Usage: varity {check,demo,batch} [options]")
+        print("Run 'varity --help' for details.\n")
+        sys.exit(0)
+
     parser = _build_parser()
     args = parser.parse_args()
     sys.exit(args.func(args))
