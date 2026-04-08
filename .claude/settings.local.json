@@ -22,7 +22,13 @@
       "Bash(python -m streamlit --version)",
       "Bash(python -m streamlit run demo/app.py --server.headless true --server.port 8501)",
       "Bash(python -m pytest tests/ -v --tb=short -q)",
-      "Bash(npx skills:*)"
+      "Bash(npx skills:*)",
+      "Bash(mkdir -p ~/.claude/skills/code-review)",
+      "Bash(cp -r \"D:/job/Research Aston/GenAI Relaibility/Varity v0.1/varity-js/.agents/skills/code-review/.\" ~/.claude/skills/code-review/)",
+      "Bash(claude --version)",
+      "Bash(pytest tests/ -v)",
+      "Bash(ruff check:*)",
+      "Bash(mypy varity/ --strict)"
     ]
   }
 }
