@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Varity</h1>
+  <h1>Varity v0.1</h1>
   <p><em>Recursive Self-Checking for LLM Hallucination Reduction</em></p>
   
   [![PyPI - Version](https://img.shields.io/pypi/v/varity.svg)](https://pypi.org/project/varity/)
