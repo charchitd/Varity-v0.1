@@ -10,16 +10,18 @@
 </div>
 
 ---
+# Overview
 
-**Varity** is a lightweight Python library that decomposes LLM-generated text into
-atomic claims, recursively verifies each claim using the LLM itself, and returns
-per-claim confidence scores with optional auto-corrections.
+**Varity** is a lightweight, zero-dependency Python library designed to natively mitigate Large Language Model (LLM) hallucinations. It operates by systematically decomposing generated responses into atomic claims, recursively verifying each claim across iterative context depths, and computing a **Verdict Stability Score (VSS)**.
 
-Its core contribution is the **Verdict Stability Score (VSS)** — a metric derived from
-how consistently an LLM upholds or contradicts its own sub-claims across repeated
-verification passes. Claims that "flip" verdicts under recursive pressure are
-quantitatively flagged as likely hallucinations.
+Unlike traditional single-pass evaluation frameworks, Varity asserts that hallucinatory or uncertain generations are mathematically unstable. By challenging the LLM to verify its own sub-claims recursively, unstable claims will "flip" their verdicts under analytical pressure. Varity measures these algorithmic flips to calculate rigorous confidence bounds.
 
+### Key Capabilities
+
+- **Recursive Verification (Depth N):** Stresses the model to re-evaluate claims repeatedly to track verdict stability.
+- **Verdict Stability Score (VSS):** A mathematical metric bounding the resilience of an LLM generation against self-contradiction.
+- **Provider Agnostic (BYOK):** Supports Anthropic, OpenAI, and Google Gemini via raw HTTP integrations, ensuring zero telemetry and guaranteeing Bring-Your-Own-Key data sovereignty.
+- **Graceful Degradation:** Safely handles upstream provider rate limits (`HTTP 429`) and degradation faults without interrupting the execution pipeline.
 ## Why Varity?
 
 | Problem | Varity's Approach |
