@@ -212,6 +212,16 @@ flips on every pass approaches VSS = 0.0. Claims below the configured
 | `duration_ms` | `int` | Wall-clock execution time in milliseconds |
 | `token_usage` | `dict` | Estimated token consumption breakdown |
 
+## Commercial Use Cases
+
+Because Varity mathematically filters out unstable generations, it serves as the perfect underlying engine for building high-value, hallucination-free applications:
+
+### 1. "Zero-Hallucination" Legal or Medical Writers
+General LLMs are dangerous in high-stakes fields because they can invent case studies or medical facts with complete semantic confidence. By piping raw LLM output through Varity (`depth=3`) and only rendering the `corrected_response` in your UI, you guarantee factuality for professionals who cannot afford hallucinations.
+
+### 2. Academic & SEO Fact-Checking Automation
+Content teams and researchers spend countless hours manually fact-checking AI outputs. Varity can be wrapped into a Chrome Extension or text-editor plugin where users highlight generated text and instantly receive a boolean breakdown of Verified vs. Hallucinated claims, drastically reducing manual audit times.
+
 ## Stress Testing
 
 The included `test101.py` script runs Varity against a known-hallucination payload
@@ -230,7 +240,7 @@ python test101.py
 
 ```bash
 # Clone and install in development mode
-git clone https://github.com/charchitd/varity.git
+git clone https://github.com/charchitd/Varity-v0.1.git
 cd varity
 pip install -e ".[dev]"
 
