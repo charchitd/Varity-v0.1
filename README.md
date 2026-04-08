@@ -183,6 +183,7 @@ A claim verified as `supported` at every depth receives VSS = 1.0. A claim that
 flips on every pass approaches VSS = 0.0. Claims below the configured
 `confidence_threshold` are flagged and eligible for automatic correction.
 
+```
 ## Configuration Reference
 
 `VarityConfig` accepts the following parameters:
