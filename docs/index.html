@@ -6,7 +6,7 @@
     <title>Varity | Recursive Self-Checking for LLMs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -22,9 +22,9 @@
             --text-dim: #9ba1a6;
             --border-dim: rgba(255, 255, 255, 0.1);
             
-            --font-body: 'Outfit', sans-serif;
-            --font-code: 'IBM Plex Mono', monospace;
-            --font-display: 'Instrument Serif', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-code: 'Fira Code', monospace;
+            --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         * {
@@ -112,7 +112,8 @@
             font-size: clamp(3rem, 8vw, 5rem);
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            font-weight: 400;
+            font-weight: 700;
+            letter-spacing: -0.04em;
         }
         .hero h1 i {
             color: var(--accent);
@@ -152,7 +153,8 @@
             font-family: var(--font-display);
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            font-weight: 400;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
 
         .problem h2 { color: var(--hallucination); }
@@ -401,7 +403,7 @@
 
         /* --- 5. CONFIDENCE BANDS --- */
         .bands-section { padding: 5rem 0; text-align: center; }
-        .bands-section h3 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 400; margin-bottom: 3rem; }
+        .bands-section h3 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 3rem; }
         
         .spectrum {
             display: flex;
@@ -439,7 +441,7 @@
 
         /* --- 7. INSTALL --- */
         .install-section { padding: 5rem 0; text-align: center; }
-        .install-section h3 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 400; margin-bottom: 2rem;}
+        .install-section h3 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 2rem;}
         
         .install-grid {
             display: flex;
