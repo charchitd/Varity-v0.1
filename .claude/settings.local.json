@@ -21,7 +21,8 @@
       "Bash(pip show:*)",
       "Bash(python -m streamlit --version)",
       "Bash(python -m streamlit run demo/app.py --server.headless true --server.port 8501)",
-      "Bash(python -m pytest tests/ -v --tb=short -q)"
+      "Bash(python -m pytest tests/ -v --tb=short -q)",
+      "Bash(npx skills:*)"
     ]
   }
 }
