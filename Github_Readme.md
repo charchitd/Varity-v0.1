@@ -92,6 +92,17 @@ if __name__ == "__main__":
 
 For CI/CD triggers and rapid evaluation benchmarking, Varity ships a comprehensive CLI accommodating both single-text evaluations and batch processing.
 
+```text
+ __      __        _ _         
+ \ \    / /       (_) |        
+  \ \  / /_ _ _ __ _| |_ _   _ 
+   \ \/ / _` | '__| | __| | | |
+    \  / (_| | |  | | |_| |_| |
+     \/ \__,_|_|  |_|\__|\__, |  v0.1
+                          __/ |
+                         |___/ 
+```
+
 ```bash
 # Evaluate a solitary string context directly
 varity check "Einstein won the Nobel Prize for Relativity in 1921." --provider anthropic

@@ -99,6 +99,17 @@ asyncio.run(main())
 
 ### 3. Use the CLI
 
+```text
+ __      __        _ _         
+ \ \    / /       (_) |        
+  \ \  / /_ _ _ __ _| |_ _   _ 
+   \ \/ / _` | '__| | __| | | |
+    \  / (_| | |  | | |_| |_| |
+     \/ \__,_|_|  |_|\__|\__, |  v0.1
+                          __/ |
+                         |___/ 
+```
+
 ```bash
 # Single-text evaluation
 varity check "Einstein won the Nobel Prize for Relativity." --provider gemini
