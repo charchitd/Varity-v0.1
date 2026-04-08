@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m ruff check varity/)",
+      "Bash(python -m pytest tests/ -v)",
+      "Bash(python -m ruff check varity/ tests/)",
+      "Bash(python -m mypy varity/ --strict)",
+      "Bash(python -m ruff check varity/ tests/ --fix)",
+      "Bash(python -m pytest tests/ -v --tb=short)",
+      "Bash(python -m pytest tests/ -v --ignore=tests/integration)",
+      "Bash(python -m pytest tests/ --ignore=tests/integration -v)",
+      "Bash(python -m build --wheel)",
+      "Bash(pip install:*)",
+      "Bash(python -m varity.cli demo)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm pack:*)",
+      "Bash(python -m json.tool)"
+    ]
+  }
+}
