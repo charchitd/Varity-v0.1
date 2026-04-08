@@ -32,10 +32,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/varity"
-Documentation = "https://yourusername.github.io/varity"
-Repository = "https://github.com/yourusername/varity"
-"Bug Tracker" = "https://github.com/yourusername/varity/issues"
+Homepage = "https://github.com/charchitd/varity"
+Documentation = "https://charchitd.github.io/varity"
+Repository = "https://github.com/charchitd/varity"
+"Bug Tracker" = "https://github.com/charchitd/varity/issues"
 
 [project.optional-dependencies]
 dev = [

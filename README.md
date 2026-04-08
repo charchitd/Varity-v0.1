@@ -230,7 +230,7 @@ python test101.py
 
 ```bash
 # Clone and install in development mode
-git clone https://github.com/yourusername/varity.git
+git clone https://github.com/charchitd/varity.git
 cd varity
 pip install -e ".[dev]"
 
