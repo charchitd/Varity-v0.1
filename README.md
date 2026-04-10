@@ -1,26 +1,21 @@
-[![PyPI](https://img.shields.io/pypi/v/varity)](https://pypi.org/project/varity/)
-[![CI](https://github.com/charchitd/varity/actions/workflows/ci.yml/badge.svg)](https://github.com/charchitd/varity/actions/workflows/ci.yml)
-[![Python](https://img.shields.io/pypi/pyversions/varity)](https://pypi.org/project/varity/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+# Varity
 
-<div align="center">
-  <h1>Varity v0.1</h1>
-  <p><em>Recursive Self-Checking for LLM Hallucination Reduction</em></p>
-  
-  [![PyPI - Version](https://img.shields.io/pypi/v/varity.svg)](https://pypi.org/project/varity/)
-  [![Python Versions](https://img.shields.io/pypi/pyversions/varity.svg)](https://pypi.org/project/varity/)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-  [![Landing Page](https://img.shields.io/badge/UI-Interactive_Demo-00e5ff.svg)](https://charchitd.github.io/Varity-v0.1/)
-  [![Type Checked](https://img.shields.io/badge/mypy-strict-success.svg)](#)
-  [![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](#)
-</div>
+*Recursive Self-Checking for LLM Hallucination Reduction*
+
+[![PyPI - Version](https://img.shields.io/pypi/v/varity.svg)](https://pypi.org/project/varity/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/varity.svg)](https://pypi.org/project/varity/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Landing Page](https://img.shields.io/badge/UI-Interactive_Demo-00e5ff.svg)](https://charchitd.github.io/Varity-v0.1/)
+[![Type Checked](https://img.shields.io/badge/mypy-strict-success.svg)](#)
+[![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](#)
 
 ---
-# Overview
 
 **🚀 Try the Interactive BYOK Simulator / Landing Page locally via [`docs/index.html`](docs/index.html) or live at [Varity UI](https://charchitd.github.io/Varity-v0.1/)**
 
 **📖 Read the Architectural Whitepaper:** Dive into the mathematical models behind the Verdict Stability Score (VSS) and Recursive Interrogation at [`docs/CONCEPTS.md`](docs/CONCEPTS.md).
+
+## Overview
 
 **Varity** is a lightweight, zero-dependency Python library designed to natively mitigate Large Language Model (LLM) hallucinations. It operates by systematically decomposing generated responses into atomic claims, recursively verifying each claim across iterative context depths, and computing a **Verdict Stability Score (VSS)**.
 
