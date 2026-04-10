@@ -14,6 +14,10 @@
 ---
 # Overview
 
+<div align="center">
+  <img src="https://raw.githubusercontent.com/charchitd/Varity-v0.1/main/docs/assets/ui-flag.png" alt="Varity Interactive Simulator Interface Layout" width="100%">
+</div>
+
 **🚀 Try the Interactive BYOK Simulator / Landing Page locally via [`docs/index.html`](docs/index.html) or live at [Varity UI](https://charchitd.github.io/Varity-v0.1/)**
 
 **📖 Read the Architectural Whitepaper:** Dive into the mathematical models behind the Verdict Stability Score (VSS) and Recursive Interrogation at [`docs/CONCEPTS.md`](docs/CONCEPTS.md).
