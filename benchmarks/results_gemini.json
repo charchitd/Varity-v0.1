@@ -1,0 +1,97 @@
+{
+  "provider": "gemini",
+  "depth": 1,
+  "accuracy_pct": 62.5,
+  "avg_latency_ms": 7380,
+  "avg_tokens": 0,
+  "cases": [
+    {
+      "id": "b01",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 7564,
+      "notes": "Fully correct \u2014 no claims should be flagged."
+    },
+    {
+      "id": "b02",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 7325,
+      "notes": "Space visibility myth should be flagged; Ming Dynasty partial truth."
+    },
+    {
+      "id": "b03",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 7346,
+      "notes": "All three claims are correct."
+    },
+    {
+      "id": "b04",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 7380,
+      "notes": "Birth date/place correct; play/sonnet counts are wrong (37 plays, 154 sonnets)."
+    },
+    {
+      "id": "b05",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 7401,
+      "notes": "The Nile is generally considered longest; Amazon is debated."
+    },
+    {
+      "id": "b06",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 7334,
+      "notes": "Correct height (2020 survey)."
+    },
+    {
+      "id": "b07",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 7336,
+      "notes": "Both claims broadly correct."
+    },
+    {
+      "id": "b08",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 7357,
+      "notes": "Both anatomical facts are correct."
+    }
+  ]
+}
