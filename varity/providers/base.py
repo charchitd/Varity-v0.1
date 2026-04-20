@@ -140,7 +140,7 @@ class BaseLLMProvider(ABC):
         """Execute an async callable with exponential-backoff retry.
 
         Retries on :class:`httpx.HTTPStatusError` with status codes in
-        ``{429, 500, 502, 503}``. Raises the final error after 3 attempts.
+        ``{429, 500, 502, 503}``. Respects the ``Retry-After`` header if present.
 
         Args:
             coro_fn: Async callable to execute.
@@ -154,20 +154,42 @@ class BaseLLMProvider(ABC):
             httpx.HTTPStatusError: If all retries are exhausted.
         """
         last_exc: Optional[Exception] = None
-        for attempt, delay in enumerate(_RETRY_DELAYS, start=1):
+        # We try up to 4 times (3 retries) with increasing pauses.
+        # For 429, we're more patient than for 5xx errors.
+        retries = [2.0, 5.0, 15.0]
+
+        for attempt, delay in enumerate(retries, start=1):
             try:
                 return await coro_fn(*args, **kwargs)
             except httpx.HTTPStatusError as exc:
                 if exc.response.status_code in _RETRY_STATUSES:
                     last_exc = exc
-                    logger.warning(
-                        "Retryable HTTP %d on attempt %d/%d — waiting %.0fs",
-                        exc.response.status_code,
-                        attempt,
-                        len(_RETRY_DELAYS),
-                        delay,
+                    # Respect Retry-After header (seconds)
+                    retry_after = exc.response.headers.get("Retry-After")
+                    
+                    try:
+                        wait_time = float(retry_after) if retry_after else delay
+                    except (ValueError, TypeError):
+                        wait_time = delay
+
+                    # Ensure we don't wait 0 or negative
+                    wait_time = max(wait_time, delay)
+                    # Cap wait time to 60s to avoid hanging indefinitely
+                    wait_time = min(wait_time, 60.0)
+
+                    msg = (
+                        f"Rate limit / Provider error {exc.response.status_code} "
+                        f"(attempt {attempt}/{len(retries)}). "
+                        f"Waiting {wait_time:.1f}s before retry..."
                     )
-                    await asyncio.sleep(delay)
+                    logger.warning(msg)
+                    await asyncio.sleep(wait_time)
                 else:
                     raise
-        raise last_exc  # type: ignore[misc]
+
+        # If we reach here, retries were exhausted
+        if last_exc:
+            raise last_exc
+        return await coro_fn(*args, **kwargs)
+
+

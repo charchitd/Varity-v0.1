@@ -1,4 +1,4 @@
-# Varity v0.1 — Launch Roadmap
+# Varity v0.1.9 — Launch Roadmap
 
 ## [x] Phase 1 — Pre-publish Checklist (1–2 days)
 

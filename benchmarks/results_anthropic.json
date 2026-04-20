@@ -1,0 +1,217 @@
+{
+  "provider": "anthropic",
+  "model": "default",
+  "depth": 1,
+  "accuracy_pct": 46.7,
+  "avg_latency_ms": 353,
+  "avg_tokens": 0,
+  "tier_accuracy": {
+    "EASY": {
+      "accuracy_pct": 0.0,
+      "correct": 0,
+      "total": 3
+    },
+    "MEDIUM": {
+      "accuracy_pct": 0.0,
+      "correct": 0,
+      "total": 3
+    },
+    "HARD": {
+      "accuracy_pct": 50.0,
+      "correct": 2,
+      "total": 4
+    },
+    "CLEAN_S": {
+      "accuracy_pct": 100.0,
+      "correct": 3,
+      "total": 3
+    },
+    "CLEAN_L": {
+      "accuracy_pct": 100.0,
+      "correct": 2,
+      "total": 2
+    }
+  },
+  "cases": [
+    {
+      "id": "b01",
+      "tier": "EASY",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 444,
+      "notes": "Wrong counts: 37 plays, 154 sonnets."
+    },
+    {
+      "id": "b02",
+      "tier": "EASY",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 394,
+      "notes": "340 m/s is correct; 340 km/h is wrong by ~3.6\u00d7."
+    },
+    {
+      "id": "b03",
+      "tier": "EASY",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 386,
+      "notes": "It was 1969, not 1970."
+    },
+    {
+      "id": "b04",
+      "tier": "MEDIUM",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 328,
+      "notes": "Space visibility is a myth; Ming Dynasty is a partial truth (multiple dynasties built it)."
+    },
+    {
+      "id": "b05",
+      "tier": "MEDIUM",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 308,
+      "notes": "The Nile is generally considered the longest; the Amazon claim is contested."
+    },
+    {
+      "id": "b06",
+      "tier": "MEDIUM",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 285,
+      "notes": "The 'short Napoleon' is a myth; he was ~5'6\", average for his era."
+    },
+    {
+      "id": "b07",
+      "tier": "HARD",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 317,
+      "notes": "Broadly correct \u2014 Florey/Chain's clinical use is debated but 1942 is accepted."
+    },
+    {
+      "id": "b08",
+      "tier": "HARD",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 337,
+      "notes": "~98.7% is commonly cited; 99% is within rounding \u2014 broadly correct."
+    },
+    {
+      "id": "b09",
+      "tier": "HARD",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 277,
+      "notes": "Death toll was remarkably low (6 confirmed); 'thousands' is wrong."
+    },
+    {
+      "id": "b10",
+      "tier": "HARD",
+      "status": "FAIL",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 1,
+      "total_tokens": 0,
+      "duration_ms": 282,
+      "notes": "Well-known myth \u2014 Einstein excelled at both math and physics from an early age."
+    },
+    {
+      "id": "b11",
+      "tier": "CLEAN_S",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 423,
+      "notes": "Fully correct \u2014 no claims should be flagged."
+    },
+    {
+      "id": "b12",
+      "tier": "CLEAN_S",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 352,
+      "notes": "Correct physical fact."
+    },
+    {
+      "id": "b13",
+      "tier": "CLEAN_S",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 533,
+      "notes": "Correct \u2014 2020 survey figure."
+    },
+    {
+      "id": "b14",
+      "tier": "CLEAN_L",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 316,
+      "notes": "All three anatomical facts are correct."
+    },
+    {
+      "id": "b15",
+      "tier": "CLEAN_L",
+      "status": "PASS",
+      "overall_confidence": 1.0,
+      "vss_score": 1.0,
+      "flagged_count": 0,
+      "expected_flagged": 0,
+      "total_tokens": 0,
+      "duration_ms": 317,
+      "notes": "All three geographic facts are correct."
+    }
+  ]
+}

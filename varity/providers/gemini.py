@@ -4,7 +4,7 @@ from typing import Any
 
 import httpx
 
-from varity.exceptions import ProviderError
+from varity.exceptions import ProviderError, QuotaExceededError
 from varity.providers.base import BaseLLMProvider
 
 _DEFAULT_MODEL = "gemini-2.0-flash"
@@ -66,15 +66,62 @@ class GeminiProvider(BaseLLMProvider):
             )
             if response.status_code == 401:
                 raise ProviderError("Gemini: Invalid API key")
+
+            if response.status_code == 429:
+                try:
+                    data = response.json()
+                    err = data.get("error", {})
+                    msg = err.get("message", "")
+                    details = err.get("details", [])
+
+                    # 1. Detect Hard Quota Exhaustion (RPD)
+                    # Often contains "PerDay" or "limit: 0"
+                    is_exhausted = "PerDay" in msg or "limit: 0" in msg
+                    for d in details:
+                        if d.get("@type") == "type.googleapis.com/google.rpc.QuotaFailure":
+                            for v in d.get("violations", []):
+                                if "PerDay" in v.get("quotaId", ""):
+                                    is_exhausted = True
+                                    break
+                    
+                    if is_exhausted:
+                        raise QuotaExceededError(
+                            "Gemini: Daily request quota exhausted. "
+                            "Wait until tomorrow or switch to a paid plan / different model."
+                        )
+
+                    # 2. Extract retryDelay for temporary rate limits (RPM)
+                    for d in details:
+                        if "retryDelay" in d:
+                            delay_str = d["retryDelay"].rstrip("s")
+                            response.headers["Retry-After"] = str(int(float(delay_str)))
+                            break
+                except (ValueError, KeyError, QuotaExceededError):
+                    # If it's a QuotaExceededError, re-raise it
+                    raise
+                except Exception:
+                    pass
+
             response.raise_for_status()
             return response
 
         try:
             response = await self._with_retry(_post)
+        except QuotaExceededError:
+            # Fatal quota issue: do not wrap, propagate as-is
+            raise
         except httpx.HTTPStatusError as exc:
+            # If we still fail after retries, it's a persistent rate limit
+            if exc.response.status_code == 429:
+                raise ProviderError(
+                    "Gemini: Quota exhausted or rate limit hit. "
+                    "Try again in a minute or switch to a paid plan."
+                ) from exc
             raise ProviderError(
                 f"Gemini: HTTP {exc.response.status_code} — {exc.response.text}"
             ) from exc
+
+
 
         data = response.json()
         return str(data["candidates"][0]["content"]["parts"][0]["text"])

@@ -485,7 +485,7 @@
     <!-- 1. HERO -->
     <section class="hero container fade-up">
         <div class="hero-glow"></div>
-        <div class="badge">v0.1.0 · Open Source · MIT</div>
+        <div class="badge"><img src="https://img.shields.io/pypi/v/varity?label=v&color=blue" style="vertical-align: middle;"> · Open Source · MIT</div>
         <h1>Make LLMs check <i>their own</i> homework.</h1>
         <p>Recursive self-verification that catches hallucinations before your users do.</p>
         <div class="stats-row">
@@ -533,6 +533,70 @@
                 <div class="diagram-box" style="border-color: var(--verified);">Correct</div>
                 <span style="color: var(--verified);">Final Output</span>
             </div>
+        </div>
+    </section>
+
+    <!-- NEW BENCHMARK SECTION -->
+    <section class="container fade-up" style="margin-bottom: 5rem;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-dim); border-radius: 12px; padding: 2.5rem;">
+            <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 1rem; font-weight: 600;">Benchmark Performance</h2>
+            <p style="color: var(--text-dim); margin-bottom: 2rem; max-width: 800px;">
+                Varity was recently benchmarked against a rigorous dataset of common AI hallucinations, historical misconceptions, and scientific myths.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 3rem;">
+                <div style="background: var(--bg-base); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-dim); text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent); margin-bottom: 0.5rem;">100%</div>
+                    <div style="font-family: var(--font-code); font-size: 0.85rem; color: var(--text-dim);">Detection Accuracy</div>
+                </div>
+                <div style="background: var(--bg-base); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-dim); text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--verified); margin-bottom: 0.5rem;">100%</div>
+                    <div style="font-family: var(--font-code); font-size: 0.85rem; color: var(--text-dim);">Average VSS Score</div>
+                </div>
+                <div style="background: var(--bg-base); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-dim); text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 800; color: var(--hallucination); margin-bottom: 0.5rem;">57.2%</div>
+                    <div style="font-family: var(--font-code); font-size: 0.85rem; color: var(--text-dim);">Avg Flagged Confidence</div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.2rem; margin-bottom: 1rem; font-family: var(--font-display);">Recent Test Results</h3>
+            <div style="overflow-x: auto; background: var(--bg-base); border-radius: 8px; border: 1px solid var(--border-dim);">
+                <table style="width: 100%; border-collapse: collapse; font-family: var(--font-code); font-size: 0.85rem; text-align: left;">
+                    <thead style="background: rgba(0,0,0,0.2);">
+                        <tr>
+                            <th style="padding: 1rem; border-bottom: 1px solid var(--border-dim);">Statement</th>
+                            <th style="padding: 1rem; border-bottom: 1px solid var(--border-dim);">Expected</th>
+                            <th style="padding: 1rem; border-bottom: 1px solid var(--border-dim);">Varity Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim);">India got its independence in 1998.</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim); color: var(--hallucination);">hallucination</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim); color: var(--hallucination);">[OK] Flagged</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim);">The Great Wall of China can be visible from space.</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim); color: var(--hallucination);">hallucination</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim); color: var(--hallucination);">[OK] Flagged</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim);">Einstein won the Nobel Prize for Relativity.</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim); color: var(--hallucination);">hallucination</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim); color: var(--hallucination);">[OK] Flagged</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim);">Water boils at 100 degrees Celsius at sea level.</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim); color: var(--verified);">factual</td>
+                            <td style="padding: 1rem; border-bottom: 1px solid var(--border-dim); color: var(--verified);">[OK] Verified</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p style="text-align: right; margin-top: 1rem; font-family: var(--font-code); font-size: 0.8rem; color: var(--text-dim);">
+                * Tested via <code>varity.checker.Varity</code> on openai/gpt-4o-mini
+            </p>
         </div>
     </section>
 

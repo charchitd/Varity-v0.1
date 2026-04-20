@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from varity.exceptions import DecompositionError
+from varity.exceptions import DecompositionError, QuotaExceededError
 from varity.models import Claim
 from varity.prompts import DECOMPOSE_SYSTEM, DECOMPOSE_USER
 from varity.providers.base import BaseLLMProvider
@@ -53,12 +53,15 @@ class ClaimDecomposer:
         try:
             data = await self._provider.complete_json(prompt, system=DECOMPOSE_SYSTEM)
             return self._parse(data, response)
+        except QuotaExceededError:
+            raise
         except DecompositionError as exc:
             logger.warning("ClaimDecomposer: JSON parse failed — %s", exc)
             return []
         except Exception as exc:
             logger.warning("ClaimDecomposer: provider call failed — %s", exc)
             return []
+
 
     # ------------------------------------------------------------------
     # Private helpers

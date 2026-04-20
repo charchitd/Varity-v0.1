@@ -67,7 +67,8 @@ EXAMPLES = {
 # ---------------------------------------------------------------------------
 
 with st.sidebar:
-    st.image("https://img.shields.io/badge/Varity-v0.1.0-blue", width=120)
+    import varity
+    st.image(f"https://img.shields.io/badge/Varity-v{varity.__version__}-blue", width=120)
     st.title("⚙️ Configuration")
 
     st.markdown("### 1. Provider")
@@ -436,7 +437,7 @@ st.markdown("---")
 st.markdown(
     """
     <div style="text-align:center;color:#999;font-size:0.85em">
-        Varity v0.1.0 &nbsp;|&nbsp;
+        Varity v0.1.9 &nbsp;|&nbsp;
         BYOK — your API key is used only for the direct LLM call, never stored &nbsp;|&nbsp;
         <a href="https://github.com/yourusername/varity">GitHub</a>
     </div>

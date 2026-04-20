@@ -9,8 +9,12 @@ import argparse
 import asyncio
 import json
 import os
+import platform
+import shutil
+import subprocess
 import sys
 from typing import Optional
+
 
 # ---------------------------------------------------------------------------
 # ANSI colour helpers
@@ -30,6 +34,40 @@ def _c(text: str, *codes: str) -> str:
     if not sys.stdout.isatty():
         return text
     return "".join(codes) + text + _RESET
+
+
+def _check_path_and_warn() -> None:
+    """Detect if 'varity' is on PATH and warn the user if not.
+
+    This is called from ``python -m varity`` to help users who installed via
+    pip but get 'varity is not recognized' when running the bare command.
+    """
+    if shutil.which("varity") is not None:
+        return  # All good — varity is already on PATH
+
+    # Find the Scripts directory where pip installed the entry point
+    try:
+        scripts_dir = subprocess.check_output(
+            [sys.executable, "-c", "import sysconfig; print(sysconfig.get_path('scripts'))"],
+            text=True,
+        ).strip()
+    except Exception:
+        scripts_dir = ""
+
+    is_windows = platform.system() == "Windows"
+
+    print(_c("\n⚠️  varity is not on your PATH", _YELLOW, _BOLD))
+    print(_c("   Run it now as: python -m varity", _CYAN))
+    print()
+    print(_c("   To fix permanently, add the pip Scripts folder to your PATH:", _YELLOW))
+
+    if is_windows and scripts_dir:
+        print(_c(f'   PowerShell:  $env:PATH += ";{scripts_dir}"', _DIM))
+        print(_c(f'   Permanent:   setx PATH "%PATH%;{scripts_dir}"', _DIM))
+    elif scripts_dir:
+        print(_c(f'   bash/zsh:    export PATH="$PATH:{scripts_dir}"', _DIM))
+        print(_c(f'   Permanent:   echo \'export PATH="$PATH:{scripts_dir}"\' >> ~/.bashrc', _DIM))
+    print()
 
 
 def _print_result(result: object) -> None:  # CheckResult
@@ -156,7 +194,9 @@ async def _run_check(
     json_out: bool,
 ) -> int:
     from varity import Varity, VarityConfig
+    from varity.exceptions import QuotaExceededError
     from varity.providers import get_provider
+
 
     kwargs: dict[str, object] = {}
     if model:
@@ -168,23 +208,47 @@ async def _run_check(
 
     try:
         result = await varity.acheck(response)
+    except QuotaExceededError as exc:
+        print(_c(f"\nFATAL QUOTA ERROR: {exc}", _RED), file=sys.stderr)
+        print(_c("Try switching to another provider/model or wait until tomorrow.", _YELLOW), file=sys.stderr)
+        return 1
+    except Exception as exc:
+        print(_c(f"\nError: {exc}", _RED), file=sys.stderr)
+        return 1
+
     finally:
         await provider.close()
 
     if json_out:
         print(result.model_dump_json(indent=2))
     else:
-        _print_result(result)
+        if not result.claims:
+            print(_c("\n  Verification failed: No claims were extracted.", _YELLOW))
+            print(_c("  (This usually happens if the LLM provider hit a rate limit or rejected the prompt.)", _YELLOW))
+        else:
+            _print_result(result)
 
     return 1 if result.flagged_claims else 0
 
 
+
 def _cmd_check(args: argparse.Namespace) -> int:
+    key = getattr(args, "key", None) or os.environ.get("VARITY_API_KEY", "")
+    provider = getattr(args, "provider", None) or os.environ.get("VARITY_PROVIDER", "anthropic")
+    response = args.response or getattr(args, "pos_response", "")
+
+    if not response:
+        print(_c("Error: No response provided. Use --response or a positional argument.", _RED), file=sys.stderr)
+        return 1
+    if not key:
+        print(_c("Error: No API key provided. Use --key or set VARITY_API_KEY env var.", _RED), file=sys.stderr)
+        return 1
+
     return asyncio.run(
         _run_check(
-            response=args.response,
-            provider_name=args.provider,
-            api_key=args.key,
+            response=response,
+            provider_name=provider,
+            api_key=key,
             model=getattr(args, "model", None),
             depth=args.depth,
             threshold=args.threshold,
@@ -314,17 +378,18 @@ def _build_parser() -> argparse.ArgumentParser:
             "  varity batch --provider gemini --key AIza... --input in.jsonl --output out.jsonl\n"
         ),
     )
-    parser.add_argument("--version", action="version", version="%(prog)s 0.1.0")
+    parser.add_argument("--version", action="version", version="%(prog)s 0.1.9")
     sub = parser.add_subparsers(dest="command", required=True)
 
     # -- check ---------------------------------------------------------------
     p_check = sub.add_parser("check", help="Verify a single LLM response.")
-    p_check.add_argument("--response", required=True, help="LLM response text to verify.")
+    p_check.add_argument("pos_response", nargs="?", help="LLM response text (positional).")
+    p_check.add_argument("--response", help="LLM response text (flag).")
     p_check.add_argument(
-        "--provider", default="anthropic",
-        help="Provider name: anthropic | openai | gemini (default: anthropic)."
+        "--provider", default=None,
+        help="Provider name: {anthropic, openai, gemini}."
     )
-    p_check.add_argument("--key", required=True, help="API key (BYOK — never stored).")
+    p_check.add_argument("--key", default=None, help="API key (defaults to $VARITY_API_KEY).")
     p_check.add_argument("--model", default=None, help="Override default model for the provider.")
     p_check.add_argument("--depth", type=int, default=2, help="Verification depth (default: 2).")
     p_check.add_argument(
@@ -371,20 +436,22 @@ def _build_parser() -> argparse.ArgumentParser:
 # ---------------------------------------------------------------------------
 
 _VARITY_ASCII = r"""
- __      __        _ _         
- \ \    / /       (_) |        
-  \ \  / /_ _ _ __ _| |_ _   _ 
-   \ \/ / _` | '__| | __| | | |
-    \  / (_| | |  | | |_| |_| |
-     \/ \__,_|_|  |_|\__|\__, |  v0.1
-                          __/ |
-                         |___/ 
+  __      __        _ _         
+  \ \    / /       (_) |        
+   \ \  / /_ _ _ __ _| |_ _   _ 
+    \ \/ / _` | '__| | __| | | |
+     \  / (_| | |  | | |_| |_| |
+      \/ \__,_|_|  |_|\__|\__, |  v{}
+                           __/ |
+                          |___/ 
 """
+
 
 def main() -> None:
     """Varity CLI entry point."""
+    from varity import __version__
     if len(sys.argv) == 1:
-        print(_c(_VARITY_ASCII, _CYAN, _BOLD))
+        print(_c(_VARITY_ASCII.format(__version__), _CYAN, _BOLD))
         print("Usage: varity {check,demo,batch} [options]")
         print("Run 'varity --help' for details.\n")
         sys.exit(0)

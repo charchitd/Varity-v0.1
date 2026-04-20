@@ -417,7 +417,7 @@ Track all prompt changes here with dates, rationale, and benchmark impact.
 
 | Date | Prompt | Change | Precision Δ | Recall Δ | Rationale |
 |---|---|---|---|---|---|
-| v0.1.0 | All | Initial versions | baseline | baseline | Launch |
+| v0.1.2 | All | Initial versions | baseline | baseline | Launch |
 
 ---
 

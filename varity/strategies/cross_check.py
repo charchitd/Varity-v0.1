@@ -6,6 +6,7 @@ import asyncio
 import logging
 from typing import Literal, cast
 
+from varity.exceptions import QuotaExceededError
 from varity.models import Claim, VerificationStep
 from varity.prompts import CROSS_CHECK_SYSTEM, CROSS_CHECK_USER
 from varity.providers.base import BaseLLMProvider
@@ -116,8 +117,11 @@ class CrossChecker:
             )
             return updated, step
 
+        except QuotaExceededError:
+            raise
         except Exception as exc:
             logger.warning("CrossChecker: provider failed for '%s' — %s", claim.text[:40], exc)
+
             fallback_step = VerificationStep(
                 depth=-1,
                 claim_text=claim.text,

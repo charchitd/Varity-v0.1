@@ -38,7 +38,9 @@
       "Bash(python -c \"import varity; print\\(varity.__version__\\)\")",
       "Bash(python:*)",
       "Bash(gh run:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(varity:*)",
+      "Bash(pip uninstall:*)"
     ]
   }
 }

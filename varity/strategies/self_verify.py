@@ -6,7 +6,7 @@ import asyncio
 import logging
 from typing import Literal, cast
 
-from varity.exceptions import VerificationError
+from varity.exceptions import QuotaExceededError, VerificationError
 from varity.models import Claim, VerificationStep
 from varity.prompts import VERIFY_SYSTEM, VERIFY_USER
 from varity.providers.base import BaseLLMProvider
@@ -144,10 +144,13 @@ class SelfVerifier:
                 reasoning=str(data.get("reasoning", "")),
                 confidence_delta=delta,
             )
+        except QuotaExceededError:
+            raise
         except VerificationError as exc:
             logger.warning("SelfVerifier depth=%d: JSON parse failed — %s", depth, exc)
         except Exception as exc:
             logger.warning("SelfVerifier depth=%d: provider failed — %s", depth, exc)
+
 
         return VerificationStep(
             depth=depth,

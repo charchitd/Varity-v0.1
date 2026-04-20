@@ -6,6 +6,11 @@ class ProviderError(VarityError):
     """Exception raised for errors in the provider."""
     pass
 
+class QuotaExceededError(ProviderError):
+    """Exception raised when an LLM provider's quota (e.g. Daily/Monthly) is exhausted."""
+    pass
+
+
 class DecompositionError(VarityError):
     """Exception raised for errors during claim decomposition."""
     pass

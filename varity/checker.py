@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import logging
 
-from varity.exceptions import DecompositionError
+from varity.exceptions import DecompositionError, QuotaExceededError
 from varity.models import CheckResult, Claim, VarityConfig, VerificationStep
 from varity.prompts import (
     CORRECT_SYSTEM,
@@ -86,6 +86,8 @@ class RecursiveChecker:
         # ------------------------------------------------------------------
         try:
             claims = await self._decomposer.decompose(response)
+        except QuotaExceededError:
+            raise
         except DecompositionError as exc:
             logger.error("Stage 1 (decompose) failed: %s", exc)
             claims = []
@@ -100,6 +102,8 @@ class RecursiveChecker:
         # ------------------------------------------------------------------
         try:
             claims, verification_chain = await self._verifier.verify_all(claims)
+        except QuotaExceededError:
+            raise
         except Exception as exc:
             logger.error("Stage 2 (self-verify) failed: %s", exc)
             verification_chain = []
@@ -111,9 +115,12 @@ class RecursiveChecker:
         # ------------------------------------------------------------------
         try:
             claims, cross_steps = await self._cross_checker.check_all(claims)
+        except QuotaExceededError:
+            raise
         except Exception as exc:
             logger.error("Stage 3 (cross-check) failed: %s", exc)
             cross_steps = []
+
 
         logger.debug("Stage 3 complete: %d cross-check steps", len(cross_steps))
 
