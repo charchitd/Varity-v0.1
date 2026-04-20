@@ -5,8 +5,9 @@ Runs a set of well-known true/false claims and reports VSS, confidence, and accu
 import os
 import sys
 import asyncio
-
 import time
+from dotenv import load_dotenv
+
 from varity import Varity, VarityConfig
 from varity.providers.openai import OpenAIProvider
 
@@ -72,6 +73,7 @@ YELLOW = "\033[33m"
 DIM   = "\033[2m"
 RESET = "\033[0m"
 
+load_dotenv()  # Load variables from .env file
 
 async def run_benchmark():
     api_key = os.environ.get("VARITY_API_KEY")

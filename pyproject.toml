@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "varity"
-version = "0.1.11"
+version = "0.1.12"
 description = "Recursive self-checking for LLM hallucination reduction via Verdict Stability Score (VSS)"
 readme = "README.md"
 license = { text = "MIT" }

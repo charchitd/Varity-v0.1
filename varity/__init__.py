@@ -9,7 +9,7 @@ from varity.checker import RecursiveChecker
 from varity.models import CheckResult, Claim, VarityConfig
 from varity.providers.base import BaseLLMProvider
 
-__version__ = "0.1.11"
+__version__ = "0.1.12"
 __all__ = ["Varity", "CheckResult", "Claim", "VarityConfig", "__version__"]
 
 

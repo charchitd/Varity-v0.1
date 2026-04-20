@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Varity v0.1.11</h1>
+  <h1>Varity v0.1.12</h1>
   <p><em>Recursive Self-Checking for LLM Hallucination Reduction</em></p>
   
   [![PyPI - Version](https://img.shields.io/pypi/v/varity.svg)](https://pypi.org/project/varity/)
@@ -54,7 +54,7 @@ Requires **Python 3.9+**. Core dependencies: `pydantic>=2.0`, `httpx>=0.25`, `ti
 Varity natively supports all major APIs via raw zero-dependency HTTP (no SDKs required).
 Supported providers include **OpenAI**, **Google Gemini**, and **Anthropic**. Also perfectly supports OpenAI-compatible routers like **OpenRouter**.
 
-### Recent Accuracy Test (v0.1.11)
+### Recent Accuracy Test (v0.1.12)
 Tested against a rigorous dataset of common AI hallucinations, historical misconceptions, and scientific myths using `openai/gpt-4o-mini` (via OpenRouter).
 
 * **Detection Accuracy**: 100% (8/8 mixed facts and hallucinations correctly flagged)
