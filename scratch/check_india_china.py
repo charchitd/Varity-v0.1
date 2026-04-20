@@ -6,7 +6,7 @@ CLAIM = "India got its independence in 1998. The Great Wall of China can be visi
 
 async def main():
     provider = OpenAIProvider(
-        api_key="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",
+        api_key="your-api-key",
         model="openai/gpt-4o-mini",
         base_url="https://openrouter.ai/api/v1/chat/completions",
     )

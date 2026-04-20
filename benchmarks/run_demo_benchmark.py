@@ -2,6 +2,7 @@
 Varity Benchmark Suite — Hallucination Detection Demo
 Runs a set of well-known true/false claims and reports VSS, confidence, and accuracy.
 """
+import os
 import sys
 import asyncio
 
@@ -73,8 +74,13 @@ RESET = "\033[0m"
 
 
 async def run_benchmark():
+    api_key = os.environ.get("VARITY_API_KEY")
+    if not api_key:
+        print(f"{RED}ERROR: VARITY_API_KEY environment variable not set.{RESET}")
+        return
+
     provider = OpenAIProvider(
-        api_key="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",
+        api_key=api_key,
         model="openai/gpt-4o-mini",
         base_url="https://openrouter.ai/api/v1/chat/completions",
     )
